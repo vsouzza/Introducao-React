@@ -1,5 +1,6 @@
 import './Header.css';
 import logo from '../../assets/img/logo.svg';
+import { Link } from 'react-router-dom';
 
 function Header(){
 
@@ -23,7 +24,9 @@ function ExpRecMenu() {
     return(
          <header>
         <div className="container header_container">
+            <Link to={"/login"}>
             <img src={logo} alt="logo bolos do Jacquin"/>
+            </Link>
 
             <div className="box_busca">
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -34,11 +37,11 @@ function ExpRecMenu() {
                 <input type="text" id="busca" placeholder="Buscar Doçuras..."/>
             </div>
 
-            <a className="link_inicio" href="../home/index.html">
+            <Link className="link_inicio" to={"/"}>
                 Início
                 <span>Commencer</span>
                 <hr/>
-            </a>
+            </Link>
 
             <button onClick={() => ExpRecMenu()}>
                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.000000 512.000000"

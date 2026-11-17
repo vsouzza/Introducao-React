@@ -1,13 +1,22 @@
 import './Login.css'
+import iconJacquin from "../../assets/img/icon_jacquin.png"
+import { useNavigate } from 'react-router-dom'
 
 function Login(){
+  
+  const navigate = useNavigate();
+
+  const logar = () => {
+    navigate('/admProdutos')
+  }
+
     return(
         <main>
   <section className="container container_login">
     <div className="box_login">
       <img
         className="icon_jacquin"
-        src="../img/icon_jacquin.png"
+        src={iconJacquin}
         alt="icone Jacquin"
       />
       <div className="box_h2">
@@ -24,7 +33,7 @@ function Login(){
           <label htmlFor="senha">senha</label>
           <input type="password" id="senha" placeholder="Ex: Senha@123" />
         </div>
-        <input type="button" defaultValue="conectar" />
+        <input type="button" defaultValue="conectar" onClick={logar} />
       </form>
     </div>
   </section>

@@ -1,11 +1,25 @@
 import "./listaProdutos.css";
-import leGrand from '../../assets/img/produtos/le_grand_chocolat.png'
-import user from '../../assets/icones/user.svg'
-import star from '../../assets/icones/star.svg'
-import { Link } from "react-router-dom";
+import Card from "../../components/card/Card";
+import { useEffect, useState } from "react";
+import type { Produto } from "../../types/Produto";
+import produtoService from "../../services/produtoService";
 
 
 function ListaProdutos() {
+  const [produtos, setProdutos] = useState<Produto[]>([]);
+  const [erro, setErro] = useState('');
+  const [carregando, setCarregando] = useState(true)
+
+  useEffect(() => {
+    // Promise.call 
+    produtoService.listar()
+    .then(lista => {setProdutos(lista), console.log(lista)})
+    .catch(() => setErro("Não foi possível carregar os produtos!"))
+    .finally(() => setCarregando (false))
+
+  }, [])
+
+
   return (
     <>
       <main>
@@ -16,31 +30,21 @@ function ListaProdutos() {
             <span>Nos Gâteaux</span>
             <hr />
           </div>
+          {carregando && <p>Carregando Produtos...</p>}
+          {!carregando && !erro && produtos.length === 0 && <p>Nenhum produto encontrado.</p>}
           <div className="prod_cards">
-            <article className="prod_card">
-              <figure>
-                <img
-                  src={leGrand}
-                  alt="foto do produto"
-                />
-              </figure>
-              <h2>
-                <Link to="/detalheProduto">Le Grand Chocolat</Link>
-              </h2>
-              <p className="card_desc">
-                Mousse de chocolate belga 70%, praliné de avelãs e biscuit de
-                cacau.
-              </p>
-              <p className="card_rodape">
-                <data value={185.0}>R$ 185,00 / kg</data>
-                <span className="card_av">
-                  <img src={user} alt="icone de usuarios" />
-                  <data value={10}>10</data>
-                  <img src={star} alt="icone de estrela" />
-                  <data value="9.5">9,5</data>
-                </span>
-              </p>
-            </article>
+
+            {produtos.map(produto => {
+             return <Card 
+             id={produto.id}
+             key={produto.id}
+            imgProduto={`http://localhost:3000${produto.imagem}`}
+            nome={produto.nome}
+            descricao={produto.descricaoCurta}
+            valor={produto.precoPorKg}
+            qtdAvals={10}
+            nota={9.5}
+            />})}
           </div>
         </section>
       </main>
