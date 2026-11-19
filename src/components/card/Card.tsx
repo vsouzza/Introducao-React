@@ -1,5 +1,4 @@
 import './Card.css'
-import leGrand from '../../assets/img/produtos/le_grand_chocolat.png'
 import user from '../../assets/icones/user.svg'
 import star from '../../assets/icones/star.svg'
 import { Link } from 'react-router-dom'
@@ -19,8 +18,8 @@ function Card({id, imgProduto, nome, descricao, valor, qtdAvals, nota} :CardProp
         <article className="prod_card">
         <figure>
           <img
-            src={leGrand}
-            alt={imgProduto}
+            src={imgProduto}
+            alt="Bolos"
           />
         </figure>
         <h2>
